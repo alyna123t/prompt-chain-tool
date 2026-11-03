@@ -18,19 +18,28 @@ export default function Nav() {
 
   return (
     <nav className="flex flex-wrap gap-1">
-      {LINKS.map((l) => (
-        <Link
-          key={l.href}
-          href={l.href}
-          className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-            isActive(l.href)
-              ? "bg-[var(--accent)] text-white"
-              : "text-[var(--muted)] hover:bg-[var(--surface-2)] hover:text-[var(--foreground)]"
-          }`}
-        >
-          {l.label}
-        </Link>
-      ))}
+      {LINKS.map((l) => {
+        const active = isActive(l.href);
+        return (
+          <Link
+            key={l.href}
+            href={l.href}
+            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm transition-colors ${
+              active
+                ? "bg-[var(--surface-2)] font-medium text-[var(--foreground)]"
+                : "text-[var(--muted)] hover:text-[var(--foreground)]"
+            }`}
+          >
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                active ? "bg-[var(--accent)]" : "bg-transparent"
+              }`}
+              aria-hidden
+            />
+            {l.label}
+          </Link>
+        );
+      })}
     </nav>
   );
 }

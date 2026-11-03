@@ -16,7 +16,7 @@ export default async function AppLayout({
   if (state.status === "not-admin") {
     return (
       <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center gap-4 px-4">
-        <h1 className="text-2xl font-bold">No access</h1>
+        <h1 className="text-2xl font-semibold">No access</h1>
         <p className="text-[var(--muted)]">
           You&apos;re signed in as{" "}
           <span className="font-medium text-[var(--foreground)]">{state.email}</span>, but
@@ -37,7 +37,7 @@ export default async function AppLayout({
       <header className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--background)]/85 backdrop-blur">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-4">
-            <Link href="/" className="text-base font-bold">
+            <Link href="/" className="text-base font-semibold tracking-tight">
               Prompt<span className="text-[var(--accent)]">Chains</span>
             </Link>
             <Nav />

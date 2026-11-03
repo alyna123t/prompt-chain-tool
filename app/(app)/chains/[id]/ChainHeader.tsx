@@ -3,7 +3,13 @@
 import { useActionState, useState } from "react";
 import { updateChain, deleteChain, type FormState } from "../actions";
 import DeleteButton from "../../components/DeleteButton";
-import { Field, ErrorBanner, inputClass, textareaClass } from "../../components/ui";
+import {
+  Field,
+  ErrorBanner,
+  inputClass,
+  textareaClass,
+  primaryBtnSm,
+} from "../../components/ui";
 import type { PromptChain } from "@/lib/types";
 
 export default function ChainHeader({ chain }: { chain: PromptChain }) {
@@ -21,7 +27,7 @@ export default function ChainHeader({ chain }: { chain: PromptChain }) {
     return (
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold">{chain.name}</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">{chain.name}</h1>
           {chain.description ? (
             <p className="mt-1 text-sm text-[var(--muted)]">{chain.description}</p>
           ) : null}
@@ -60,11 +66,7 @@ export default function ChainHeader({ chain }: { chain: PromptChain }) {
       </Field>
       <ErrorBanner message={state.error} />
       <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)] disabled:opacity-60"
-        >
+        <button type="submit" disabled={pending} className={primaryBtnSm}>
           {pending ? "Saving…" : "Save"}
         </button>
         <button

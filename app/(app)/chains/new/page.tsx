@@ -3,7 +3,14 @@
 import { useActionState } from "react";
 import Link from "next/link";
 import { createChain, type FormState } from "../actions";
-import { Card, Field, ErrorBanner, inputClass, textareaClass } from "../../components/ui";
+import {
+  Card,
+  Field,
+  ErrorBanner,
+  inputClass,
+  textareaClass,
+  primaryBtn,
+} from "../../components/ui";
 
 export default function NewChainPage() {
   const [state, action, pending] = useActionState<FormState, FormData>(createChain, {});
@@ -14,7 +21,7 @@ export default function NewChainPage() {
         <Link href="/" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">
           ← Back to chains
         </Link>
-        <h1 className="mt-2 text-2xl font-bold">New prompt chain</h1>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight">New prompt chain</h1>
       </div>
 
       <Card>
@@ -29,11 +36,11 @@ export default function NewChainPage() {
             />
           </Field>
 
-          <Field label="Description" hint="Optional — what this chain is for.">
+          <Field label="Description" hint="Optional — what this chain is for">
             <textarea
               name="description"
               rows={3}
-              placeholder="Takes an image and turns it into five funny captions."
+              placeholder="Takes an image and turns it into five funny captions"
               className={textareaClass}
             />
           </Field>
@@ -41,11 +48,7 @@ export default function NewChainPage() {
           <ErrorBanner message={state.error} />
 
           <div className="flex items-center gap-3">
-            <button
-              type="submit"
-              disabled={pending}
-              className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)] disabled:opacity-60"
-            >
+            <button type="submit" disabled={pending} className={primaryBtn}>
               {pending ? "Creating…" : "Create chain"}
             </button>
             <Link href="/" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">

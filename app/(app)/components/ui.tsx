@@ -15,9 +15,7 @@ export function Card({
     >
       {title ? (
         <div className="mb-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">
-            {title}
-          </h2>
+          <h2 className="text-sm font-medium text-[var(--foreground)]">{title}</h2>
           {subtitle ? (
             <p className="mt-0.5 text-xs text-[var(--muted)]">{subtitle}</p>
           ) : null}
@@ -56,7 +54,17 @@ export function ErrorBanner({ message }: { message?: string }) {
 }
 
 const inputBase =
-  "w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm outline-none focus:border-[var(--accent)]";
+  "w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm outline-none transition-colors focus:border-[var(--accent)]";
 
 export const inputClass = inputBase;
 export const textareaClass = inputBase;
+
+// Primary action = solid ink with inverse text (reads deliberate in both themes;
+// amber stays reserved for selection, the active node and the final-output marker).
+export const primaryBtn =
+  "rounded-lg bg-[var(--foreground)] px-4 py-2 text-sm font-medium text-[var(--background)] transition-opacity hover:opacity-90 disabled:opacity-50";
+export const primaryBtnSm =
+  "rounded-lg bg-[var(--foreground)] px-3 py-1.5 text-sm font-medium text-[var(--background)] transition-opacity hover:opacity-90 disabled:opacity-50";
+// Quiet secondary.
+export const ghostBtnSm =
+  "rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-2)]";

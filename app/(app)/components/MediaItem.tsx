@@ -15,17 +15,15 @@ export default function MediaItem({
     <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs text-[var(--muted)]">
+          <p className="font-[family-name:var(--font-mono)] text-xs tabular-nums text-[var(--muted)]">
             {new Date(media.created_at).toLocaleString()}
             {media.used_mock ? (
-              <span className="ml-2 rounded bg-[var(--surface-2)] px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[var(--muted)]">
-                mock
+              <span className="ml-2 rounded bg-[var(--surface-2)] px-1.5 py-0.5 font-[family-name:var(--font-sans)] text-[11px] font-medium text-[var(--muted)]">
+                Mock
               </span>
             ) : null}
           </p>
-          {chainName ? (
-            <p className="text-sm font-semibold">{chainName}</p>
-          ) : null}
+          {chainName ? <p className="text-sm font-medium">{chainName}</p> : null}
         </div>
         <DeleteButton
           action={deleteMedia}
@@ -37,9 +35,7 @@ export default function MediaItem({
 
       <div className="mt-3 space-y-3">
         <div className="rounded-lg bg-[var(--surface-2)] p-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--muted)]">
-            Input
-          </p>
+          <p className="text-xs font-medium text-[var(--muted)]">Input</p>
           {media.input_image_url ? (
             <Image
               src={media.input_image_url}
@@ -62,18 +58,19 @@ export default function MediaItem({
         <ol className="space-y-2">
           {media.steps.map((s, i) => (
             <li key={i} className="rounded-lg border border-[var(--border)] p-3">
-              <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--muted)]">
-                Step {i + 1}: {s.name}
+              <p className="text-xs font-medium text-[var(--muted)]">
+                <span className="font-[family-name:var(--font-mono)] tabular-nums">
+                  {i + 1}
+                </span>{" "}
+                · {s.name}
               </p>
               <p className="mt-1 whitespace-pre-wrap text-sm">{s.output}</p>
             </li>
           ))}
         </ol>
 
-        <div className="rounded-lg border border-[var(--accent)] bg-[var(--accent-light)] p-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wide text-[var(--accent-dark)]">
-            Final output
-          </p>
+        <div className="rounded-lg border border-[var(--border)] border-l-2 border-l-[var(--accent)] bg-[var(--accent-light)] p-3">
+          <p className="text-xs font-medium text-[var(--accent)]">Final output</p>
           <p className="mt-1 whitespace-pre-wrap text-sm">{media.final_output}</p>
         </div>
       </div>

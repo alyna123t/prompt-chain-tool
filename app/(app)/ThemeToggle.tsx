@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SunIcon, MoonIcon, MonitorIcon } from "./components/icons";
 
 type Theme = "light" | "dark" | "system";
 
-const OPTIONS: { value: Theme; label: string; icon: string }[] = [
-  { value: "light", label: "Light", icon: "☀" },
-  { value: "dark", label: "Dark", icon: "☾" },
-  { value: "system", label: "System", icon: "🖥" },
+const OPTIONS: { value: Theme; label: string; Icon: typeof SunIcon }[] = [
+  { value: "light", label: "Light", Icon: SunIcon },
+  { value: "dark", label: "Dark", Icon: MoonIcon },
+  { value: "system", label: "System", Icon: MonitorIcon },
 ];
 
 // Light / Dark / System default. "system" removes the data-theme attribute so the
@@ -54,6 +55,7 @@ export default function ThemeToggle() {
     >
       {OPTIONS.map((o) => {
         const active = mounted && theme === o.value;
+        const Icon = o.Icon;
         return (
           <button
             key={o.value}
@@ -61,14 +63,14 @@ export default function ThemeToggle() {
             onClick={() => choose(o.value)}
             aria-pressed={active}
             title={`${o.label} theme`}
-            className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+            className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium transition-colors ${
               active
-                ? "bg-[var(--accent)] text-white"
-                : "text-[var(--muted)] hover:bg-[var(--surface-2)]"
+                ? "bg-[var(--surface-2)] text-[var(--foreground)]"
+                : "text-[var(--muted)] hover:text-[var(--foreground)]"
             }`}
           >
-            <span aria-hidden>{o.icon}</span>
-            <span className="ml-1 hidden sm:inline">{o.label}</span>
+            <Icon size={15} />
+            <span className="hidden sm:inline">{o.label}</span>
           </button>
         );
       })}

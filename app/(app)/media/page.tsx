@@ -22,9 +22,12 @@ export default async function MediaPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Generated media</h1>
-        <p className="text-sm text-[var(--muted)]">
-          {rows.length} generation{rows.length === 1 ? "" : "s"} across all chains
+        <h1 className="text-2xl font-semibold tracking-tight">Generated media</h1>
+        <p className="mt-0.5 text-sm text-[var(--muted)]">
+          <span className="font-[family-name:var(--font-mono)] tabular-nums">
+            {rows.length}
+          </span>{" "}
+          generation{rows.length === 1 ? "" : "s"} across all chains
         </p>
       </div>
 

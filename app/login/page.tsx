@@ -21,10 +21,8 @@ export default async function LoginPage({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
       <div>
-        <p className="text-sm font-semibold uppercase tracking-wide text-[var(--accent)]">
-          Prompt Chain Tool
-        </p>
-        <h1 className="mt-1 text-2xl font-bold">Restricted area</h1>
+        <p className="text-sm font-medium text-[var(--accent)]">Prompt Chain Tool</p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight">Restricted area</h1>
         <p className="mt-1 text-sm text-[var(--muted)]">
           Sign in with the authorized Google account. Only superadmins may enter.
         </p>

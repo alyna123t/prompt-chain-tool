@@ -69,8 +69,11 @@ export default async function ChainDetailPage({
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">
-          Generated media ({mediaList.length})
+        <h2 className="text-sm font-medium text-[var(--foreground)]">
+          Generated media{" "}
+          <span className="font-[family-name:var(--font-mono)] tabular-nums text-[var(--muted)]">
+            {mediaList.length}
+          </span>
         </h2>
         {mediaList.length === 0 ? (
           <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">

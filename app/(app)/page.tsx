@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { Card } from "./components/ui";
+import { Card, primaryBtn } from "./components/ui";
 import type { PromptChain } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -27,17 +27,16 @@ export default async function ChainsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold">Prompt chains</h1>
-          <p className="text-sm text-[var(--muted)]">
-            {chains.length} chain{chains.length === 1 ? "" : "s"} · build multi-step AI
-            pipelines
+          <h1 className="text-2xl font-semibold tracking-tight">Prompt chains</h1>
+          <p className="mt-0.5 text-sm text-[var(--muted)]">
+            <span className="font-[family-name:var(--font-mono)] tabular-nums">
+              {chains.length}
+            </span>{" "}
+            chain{chains.length === 1 ? "" : "s"} · build multi-step AI pipelines
           </p>
         </div>
-        <Link
-          href="/chains/new"
-          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)]"
-        >
-          + New chain
+        <Link href="/chains/new" className={primaryBtn}>
+          New chain
         </Link>
       </div>
 
@@ -61,14 +60,14 @@ export default async function ChainsPage() {
             const media = c.generated_media?.[0]?.count ?? 0;
             return (
               <Link key={c.id} href={`/chains/${c.id}`} className="block">
-                <Card className="h-full transition-colors hover:border-[var(--accent)]">
-                  <h2 className="font-semibold">{c.name}</h2>
+                <Card className="h-full transition-colors hover:bg-[var(--surface-2)]">
+                  <h2 className="font-medium">{c.name}</h2>
                   {c.description ? (
                     <p className="mt-1 line-clamp-2 text-sm text-[var(--muted)]">
                       {c.description}
                     </p>
                   ) : null}
-                  <p className="mt-3 text-xs text-[var(--muted)]">
+                  <p className="mt-3 font-[family-name:var(--font-mono)] text-xs tabular-nums text-[var(--muted)]">
                     {steps} step{steps === 1 ? "" : "s"} · {media} generation
                     {media === 1 ? "" : "s"} · updated{" "}
                     {new Date(c.updated_at).toLocaleDateString()}

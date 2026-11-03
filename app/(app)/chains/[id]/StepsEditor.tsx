@@ -9,7 +9,15 @@ import {
   type FormState,
 } from "../actions";
 import DeleteButton from "../../components/DeleteButton";
-import { Field, ErrorBanner, inputClass, textareaClass } from "../../components/ui";
+import { ChevronUpIcon, ChevronDownIcon } from "../../components/icons";
+import {
+  Field,
+  ErrorBanner,
+  inputClass,
+  textareaClass,
+  primaryBtnSm,
+  ghostBtnSm,
+} from "../../components/ui";
 import type { PromptChainStep } from "@/lib/types";
 
 export default function StepsEditor({
@@ -20,12 +28,13 @@ export default function StepsEditor({
   steps: PromptChainStep[];
 }) {
   return (
-    <div className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted)]">
-          Steps ({steps.length})
-        </h2>
-      </div>
+    <div className="space-y-4">
+      <h2 className="text-sm font-medium text-[var(--foreground)]">
+        Steps{" "}
+        <span className="font-[family-name:var(--font-mono)] tabular-nums text-[var(--muted)]">
+          {steps.length}
+        </span>
+      </h2>
 
       {steps.length === 0 ? (
         <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">
@@ -76,77 +85,75 @@ function StepRow({
   );
 
   return (
-    <li className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
-      <div className="flex items-start gap-3">
-        <div className="flex flex-col items-center gap-1 pt-0.5">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--accent)] text-xs font-bold text-white">
-            {index + 1}
-          </span>
-          <ReorderButton chainId={chainId} stepId={step.id} direction="up" disabled={isFirst} />
-          <ReorderButton chainId={chainId} stepId={step.id} direction="down" disabled={isLast} />
-        </div>
+    <li className="flex gap-3">
+      {/* Chain rail: amber node joined to the next by a hairline connector. */}
+      <div className="relative flex w-7 flex-col items-center pt-4">
+        {!isLast ? (
+          <span
+            className="absolute left-1/2 top-9 bottom-[-12px] w-px -translate-x-1/2 bg-[var(--border)]"
+            aria-hidden
+          />
+        ) : null}
+        <span className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--accent)] font-[family-name:var(--font-mono)] text-xs tabular-nums text-[var(--background)]">
+          {index + 1}
+        </span>
+      </div>
 
-        <div className="min-w-0 flex-1">
-          {editing ? (
-            <form action={action} className="space-y-3">
-              <input type="hidden" name="id" value={step.id} />
-              <input type="hidden" name="chain_id" value={chainId} />
-              <Field label="Step name">
-                <input name="name" required defaultValue={step.name} className={inputClass} />
-              </Field>
-              <Field label="Prompt / instruction">
-                <textarea
-                  name="prompt"
-                  required
-                  rows={3}
-                  defaultValue={step.prompt}
-                  className={textareaClass}
+      <div className="min-w-0 flex-1 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
+        {editing ? (
+          <form action={action} className="space-y-3">
+            <input type="hidden" name="id" value={step.id} />
+            <input type="hidden" name="chain_id" value={chainId} />
+            <Field label="Step name">
+              <input name="name" required defaultValue={step.name} className={inputClass} />
+            </Field>
+            <Field label="Prompt / instruction">
+              <textarea
+                name="prompt"
+                required
+                rows={3}
+                defaultValue={step.prompt}
+                className={textareaClass}
+              />
+            </Field>
+            <ErrorBanner message={state.error} />
+            <div className="flex items-center gap-3">
+              <button type="submit" disabled={pending} className={primaryBtnSm}>
+                {pending ? "Saving…" : "Save"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <h3 className="font-medium">{step.name}</h3>
+              <div className="flex items-center gap-1">
+                <ReorderButton chainId={chainId} stepId={step.id} direction="up" disabled={isFirst} />
+                <ReorderButton chainId={chainId} stepId={step.id} direction="down" disabled={isLast} />
+                <button onClick={() => setEditing(true)} className={ghostBtnSm}>
+                  Edit
+                </button>
+                <DeleteButton
+                  action={deleteStep}
+                  hidden={{ id: step.id, chain_id: chainId }}
+                  label="Delete"
+                  confirmText={`Delete step "${step.name}"?`}
+                  className="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs font-medium text-[var(--negative)] transition-colors hover:bg-[var(--negative)] hover:text-white"
                 />
-              </Field>
-              <ErrorBanner message={state.error} />
-              <div className="flex items-center gap-3">
-                <button
-                  type="submit"
-                  disabled={pending}
-                  className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)] disabled:opacity-60"
-                >
-                  {pending ? "Saving…" : "Save"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setEditing(false)}
-                  className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
-                >
-                  Cancel
-                </button>
               </div>
-            </form>
-          ) : (
-            <>
-              <div className="flex flex-wrap items-start justify-between gap-2">
-                <h3 className="font-semibold">{step.name}</h3>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setEditing(true)}
-                    className="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs font-medium transition-colors hover:bg-[var(--surface-2)]"
-                  >
-                    Edit
-                  </button>
-                  <DeleteButton
-                    action={deleteStep}
-                    hidden={{ id: step.id, chain_id: chainId }}
-                    label="Delete"
-                    confirmText={`Delete step "${step.name}"?`}
-                    className="rounded-lg border border-[var(--border)] px-2.5 py-1 text-xs font-medium text-[var(--negative)] transition-colors hover:bg-[var(--negative)] hover:text-white"
-                  />
-                </div>
-              </div>
-              <p className="mt-1 whitespace-pre-wrap text-sm text-[var(--muted)]">
-                {step.prompt}
-              </p>
-            </>
-          )}
-        </div>
+            </div>
+            <p className="mt-1.5 whitespace-pre-wrap text-sm text-[var(--muted)]">
+              {step.prompt}
+            </p>
+          </>
+        )}
       </div>
     </li>
   );
@@ -163,6 +170,7 @@ function ReorderButton({
   direction: "up" | "down";
   disabled: boolean;
 }) {
+  const Icon = direction === "up" ? ChevronUpIcon : ChevronDownIcon;
   return (
     <form action={moveStep}>
       <input type="hidden" name="id" value={stepId} />
@@ -173,9 +181,9 @@ function ReorderButton({
         disabled={disabled}
         aria-label={`Move step ${direction}`}
         title={`Move ${direction}`}
-        className="flex h-5 w-5 items-center justify-center rounded border border-[var(--border)] text-xs text-[var(--muted)] transition-colors hover:bg-[var(--surface-2)] disabled:cursor-not-allowed disabled:opacity-30"
+        className="flex h-7 w-7 items-center justify-center rounded-lg border border-[var(--border)] text-[var(--muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--foreground)] disabled:cursor-not-allowed disabled:opacity-30"
       >
-        {direction === "up" ? "↑" : "↓"}
+        <Icon size={15} />
       </button>
     </form>
   );
@@ -196,9 +204,9 @@ function AddStep({ chainId }: { chainId: string }) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="w-full rounded-xl border border-dashed border-[var(--border)] py-3 text-sm font-medium text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+        className="w-full rounded-xl border border-dashed border-[var(--border)] py-3 text-sm font-medium text-[var(--muted)] transition-colors hover:border-[var(--muted)] hover:text-[var(--foreground)]"
       >
-        + Add step
+        Add step
       </button>
     );
   }
@@ -212,25 +220,18 @@ function AddStep({ chainId }: { chainId: string }) {
       <Field label="Step name">
         <input name="name" required placeholder="e.g. Describe the image" className={inputClass} />
       </Field>
-      <Field
-        label="Prompt / instruction"
-        hint="What this step should do with its input."
-      >
+      <Field label="Prompt / instruction" hint="What this step should do with its input">
         <textarea
           name="prompt"
           required
           rows={3}
-          placeholder="Describe this image in one vivid sentence."
+          placeholder="Describe this image in one vivid sentence"
           className={textareaClass}
         />
       </Field>
       <ErrorBanner message={state.error} />
       <div className="flex items-center gap-3">
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-lg bg-[var(--accent)] px-3 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-dark)] disabled:opacity-60"
-        >
+        <button type="submit" disabled={pending} className={primaryBtnSm}>
           {pending ? "Adding…" : "Add step"}
         </button>
         <button

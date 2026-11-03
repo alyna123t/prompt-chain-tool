@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
+/* Light — cool graphite neutrals, one warm amber accent used rarely. */
 :root {
-  --background: #f7f7fb;
-  --foreground: #1a1830;
+  --background: #f6f6f7;
+  --foreground: #191a1c;
   --surface: #ffffff;
-  --surface-2: #eeedf6;
-  --border: #dcdae8;
-  --muted: #6f6b86;
-  --accent: #6d4aff;
-  --accent-dark: #5a38e0;
-  --accent-light: #efeaff;
-  --positive: #1f9d6b;
-  --negative: #d23b55;
+  --surface-2: #ededf0;
+  --border: #e3e3e6;
+  --muted: #6c6e73;
+  --accent: #a35a09;
+  --accent-dark: #8a4c07;
+  --accent-light: #f6ead8;
+  --positive: #1f7a4d;
+  --negative: #b4313f;
 }
 
 @theme inline {
@@ -27,36 +28,37 @@
   --color-positive: var(--positive);
   --color-negative: var(--negative);
   --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-mono);
 }
 
-/* System default (when no explicit [data-theme] is set) follows the OS. */
+/* System default (no explicit [data-theme]) follows the OS. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --background: #121020;
-    --foreground: #ecebf5;
-    --surface: #1b1930;
-    --surface-2: #242240;
-    --border: #322f52;
-    --muted: #9b97b8;
-    --accent: #9f87ff;
-    --accent-dark: #b7a4ff;
-    --accent-light: #201b3b;
+    --background: #161718;
+    --foreground: #ececed;
+    --surface: #1e1f21;
+    --surface-2: #27282b;
+    --border: #323335;
+    --muted: #9a9ca1;
+    --accent: #e4973a;
+    --accent-dark: #f0a855;
+    --accent-light: #2a2016;
     --positive: #4ade80;
     --negative: #fb7185;
   }
 }
 
-/* Explicit dark mode (user chose "Dark"). */
+/* Explicit dark mode. */
 :root[data-theme="dark"] {
-  --background: #121020;
-  --foreground: #ecebf5;
-  --surface: #1b1930;
-  --surface-2: #242240;
-  --border: #322f52;
-  --muted: #9b97b8;
-  --accent: #9f87ff;
-  --accent-dark: #b7a4ff;
-  --accent-light: #201b3b;
+  --background: #161718;
+  --foreground: #ececed;
+  --surface: #1e1f21;
+  --surface-2: #27282b;
+  --border: #323335;
+  --muted: #9a9ca1;
+  --accent: #e4973a;
+  --accent-dark: #f0a855;
+  --accent-light: #2a2016;
   --positive: #4ade80;
   --negative: #fb7185;
 }

@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f7fb;
+  --foreground: #1a1830;
+  --surface: #ffffff;
+  --surface-2: #eeedf6;
+  --border: #dcdae8;
+  --muted: #6f6b86;
+  --accent: #6d4aff;
+  --accent-dark: #5a38e0;
+  --accent-light: #efeaff;
+  --positive: #1f9d6b;
+  --negative: #d23b55;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-light: var(--accent-light);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --font-sans: var(--font-dm-sans);
+}
+
+/* System default (when no explicit [data-theme] is set) follows the OS. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background: #121020;
+    --foreground: #ecebf5;
+    --surface: #1b1930;
+    --surface-2: #242240;
+    --border: #322f52;
+    --muted: #9b97b8;
+    --accent: #9f87ff;
+    --accent-dark: #b7a4ff;
+    --accent-light: #201b3b;
+    --positive: #4ade80;
+    --negative: #fb7185;
+  }
+}
+
+/* Explicit dark mode (user chose "Dark"). */
+:root[data-theme="dark"] {
+  --background: #121020;
+  --foreground: #ecebf5;
+  --surface: #1b1930;
+  --surface-2: #242240;
+  --border: #322f52;
+  --muted: #9b97b8;
+  --accent: #9f87ff;
+  --accent-dark: #b7a4ff;
+  --accent-light: #201b3b;
+  --positive: #4ade80;
+  --negative: #fb7185;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans, system-ui, sans-serif);
+}

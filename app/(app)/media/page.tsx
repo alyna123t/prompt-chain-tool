@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import MediaItem from "../components/MediaItem";
+import MediaCard from "./MediaCard";
 import type { GeneratedMedia } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
@@ -42,9 +42,13 @@ export default async function MediaPage() {
           Nothing generated yet. Open a chain and run it to produce media.
         </p>
       ) : (
-        <div className="space-y-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {rows.map((m) => (
-            <MediaItem key={m.id} media={m} chainName={m.prompt_chains?.name ?? "Unknown chain"} />
+            <MediaCard
+              key={m.id}
+              media={m}
+              chainName={m.prompt_chains?.name ?? "Unknown chain"}
+            />
           ))}
         </div>
       )}

@@ -7,9 +7,11 @@ import type { GeneratedMedia } from "@/lib/types";
 export default function MediaItem({
   media,
   chainName,
+  deleteRedirectTo,
 }: {
   media: GeneratedMedia;
   chainName?: string;
+  deleteRedirectTo?: string;
 }) {
   return (
     <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-4">
@@ -27,7 +29,11 @@ export default function MediaItem({
         </div>
         <DeleteButton
           action={deleteMedia}
-          hidden={{ id: media.id, chain_id: media.chain_id }}
+          hidden={{
+            id: media.id,
+            chain_id: media.chain_id,
+            ...(deleteRedirectTo ? { redirect_to: deleteRedirectTo } : {}),
+          }}
           label="Delete"
           confirmText="Delete this generation?"
         />

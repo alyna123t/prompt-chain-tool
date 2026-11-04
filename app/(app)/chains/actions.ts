@@ -300,6 +300,7 @@ export async function deleteMedia(formData: FormData): Promise<void> {
   await assertSuperadmin();
   const id = String(formData.get("id") ?? "");
   const chainId = String(formData.get("chain_id") ?? "");
+  const redirectTo = String(formData.get("redirect_to") ?? "");
   if (!id) return;
 
   const supabase = await createClient();
@@ -307,4 +308,8 @@ export async function deleteMedia(formData: FormData): Promise<void> {
 
   if (chainId) revalidatePath(`/chains/${chainId}`);
   revalidatePath("/media");
+
+  // Deleting from the standalone detail page sends you back to the gallery so
+  // you don't land on a now-missing /media/[id].
+  if (redirectTo) redirect(redirectTo);
 }

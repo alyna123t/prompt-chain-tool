@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { hasApiKey } from "@/lib/ai";
+import { getApiConfig } from "@/lib/settings";
 import ChainHeader from "./ChainHeader";
 import StepsEditor from "./StepsEditor";
 import GeneratePanel from "./GeneratePanel";
@@ -44,6 +44,7 @@ export default async function ChainDetailPage({
 
   const stepList = steps ?? [];
   const mediaList = media ?? [];
+  const { hasKey } = await getApiConfig();
 
   return (
     <div className="space-y-8">
@@ -63,7 +64,7 @@ export default async function ChainDetailPage({
           <GeneratePanel
             chainId={chain.id}
             hasSteps={stepList.length > 0}
-            hasApiKey={hasApiKey()}
+            hasApiKey={hasKey}
           />
         </div>
       </div>

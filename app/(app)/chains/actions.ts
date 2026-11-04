@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { assertSuperadmin } from "@/lib/supabase/admin-auth";
 import { runChain, type ChainStepDef } from "@/lib/ai";
+import { getApiConfig } from "@/lib/settings";
 import type { PromptChainStep } from "@/lib/types";
 
 export type FormState = { error?: string };
@@ -268,9 +269,11 @@ export async function generateMedia(
 
   const defs: ChainStepDef[] = steps.map((s) => ({ name: s.name, prompt: s.prompt }));
 
+  const config = await getApiConfig();
+
   let result;
   try {
-    result = await runChain(defs, { text: inputText || null, image });
+    result = await runChain(defs, { text: inputText || null, image }, config);
   } catch (err) {
     return { error: err instanceof Error ? err.message : "Generation failed." };
   }

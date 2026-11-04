@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const LINKS = [
   { href: "/", label: "Chains" },
   { href: "/media", label: "Generated media" },
+  { href: "/settings", label: "Settings" },
 ];
 
 export default function Nav() {

@@ -95,6 +95,27 @@ create policy "Superadmins manage generated_media"
   using (public.is_superadmin())
   with check (public.is_superadmin());
 
+-- app_settings: a single-row table holding the Anthropic API key + model, so the
+-- key can be set from the in-app Settings page instead of a Vercel env var. It is
+-- superadmin-only via RLS and is only ever read server-side (never sent to the
+-- browser — the Settings page shows a masked preview).
+create table if not exists public.app_settings (
+  id                integer primary key default 1,
+  anthropic_api_key text,
+  anthropic_model   text,
+  updated_at        timestamptz not null default now(),
+  constraint app_settings_singleton check (id = 1)
+);
+
+alter table public.app_settings enable row level security;
+
+drop policy if exists "Superadmins manage app_settings" on public.app_settings;
+create policy "Superadmins manage app_settings"
+  on public.app_settings for all
+  to authenticated
+  using (public.is_superadmin())
+  with check (public.is_superadmin());
+
 -- keep updated_at fresh -------------------------------------------------------
 create or replace function public.touch_updated_at()
 returns trigger

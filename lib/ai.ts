@@ -2,15 +2,17 @@ import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
 import type { StepResult } from "@/lib/types";
 
-// Default to the current Opus; override with ANTHROPIC_MODEL if you want a cheaper
-// model (e.g. claude-haiku-5-5) for a demo.
-const MODEL = process.env.ANTHROPIC_MODEL || "claude-opus-5-5";
-
 export type ChainStepDef = { name: string; prompt: string };
 
 export type ChainInput = {
   text?: string | null;
   image?: { base64: string; mediaType: string } | null;
+};
+
+// Resolved server-side by lib/settings.ts (DB key/model, else env, else default).
+export type RunConfig = {
+  apiKey: string | null;
+  model: string;
 };
 
 export type RunResult = {
@@ -19,25 +21,23 @@ export type RunResult = {
   usedMock: boolean;
 };
 
-export function hasApiKey(): boolean {
-  return Boolean(process.env.ANTHROPIC_API_KEY);
-}
-
 // Runs the chain: step 1 receives the initial input (text and/or an image); every
 // later step receives the previous step's output. Each step's `prompt` is the
-// instruction applied to that input.
+// instruction applied to that input. With no API key, returns labeled mock output
+// so the app still works end-to-end.
 export async function runChain(
   steps: ChainStepDef[],
   input: ChainInput,
+  config: RunConfig,
 ): Promise<RunResult> {
   if (steps.length === 0) {
     throw new Error("This chain has no steps yet — add at least one step first.");
   }
-  if (!hasApiKey()) {
+  if (!config.apiKey) {
     return runMock(steps, input);
   }
 
-  const client = new Anthropic();
+  const client = new Anthropic({ apiKey: config.apiKey });
   const results: StepResult[] = [];
   let previous = "";
 
@@ -66,7 +66,7 @@ export async function runChain(
 
     try {
       const response = await client.messages.create({
-        model: MODEL,
+        model: config.model,
         max_tokens: 2000,
         system:
           "You are one step in a multi-step prompt chain. Apply the step's " +
@@ -117,7 +117,7 @@ function runMock(steps: ChainStepDef[], input: ChainInput): RunResult {
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
     const output =
-      `[MOCK OUTPUT — set ANTHROPIC_API_KEY for real generation]\n` +
+      `[MOCK OUTPUT — add an Anthropic API key in Settings for real generation]\n` +
       `Step ${i + 1} "${step.name}" applied the instruction:\n` +
       `  "${truncate(step.prompt, 160)}"\n` +
       `to the input:\n  "${truncate(previous, 160)}"`;

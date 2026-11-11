@@ -29,12 +29,17 @@ export default function StepsEditor({
 }) {
   return (
     <div className="space-y-4">
-      <h2 className="text-sm font-medium text-[var(--foreground)]">
-        Steps{" "}
-        <span className="font-[family-name:var(--font-mono)] tabular-nums text-[var(--muted)]">
-          {steps.length}
-        </span>
-      </h2>
+      <div>
+        <h2 className="text-sm font-medium text-[var(--foreground)]">
+          Steps{" "}
+          <span className="font-[family-name:var(--font-mono)] tabular-nums text-[var(--muted)]">
+            {steps.length}
+          </span>
+        </h2>
+        <p className="mt-0.5 text-xs text-[var(--muted)]">
+          Run top to bottom — each step&apos;s output becomes the next step&apos;s input.
+        </p>
+      </div>
 
       {steps.length === 0 ? (
         <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">
@@ -133,7 +138,12 @@ function StepRow({
         ) : (
           <>
             <div className="flex flex-wrap items-start justify-between gap-2">
-              <h3 className="font-medium">{step.name}</h3>
+              <div className="min-w-0">
+                <h3 className="font-medium">{step.name}</h3>
+                <p className="mt-0.5 font-[family-name:var(--font-mono)] text-[11px] text-[var(--muted)]">
+                  ↳ receives {isFirst ? "your ingredients" : `step ${index}'s output`}
+                </p>
+              </div>
               <div className="flex items-center gap-1">
                 <ReorderButton chainId={chainId} stepId={step.id} direction="up" disabled={isFirst} />
                 <ReorderButton chainId={chainId} stepId={step.id} direction="down" disabled={isLast} />

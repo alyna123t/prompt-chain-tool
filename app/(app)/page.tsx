@@ -41,6 +41,8 @@ export default async function ChainsPage() {
         </Link>
       </div>
 
+      <HowItWorks />
+
       {error ? (
         <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           Could not load recipes: {error.message}
@@ -81,5 +83,52 @@ export default async function ChainsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+// A compact, always-visible primer so the chain concept is obvious at a glance.
+function HowItWorks() {
+  const stages = [
+    {
+      label: "1 · Build a recipe",
+      body: "An ordered list of steps. Each step is one plain-English instruction.",
+    },
+    {
+      label: "2 · Cook it",
+      body: "Feed in your ingredients — a dish photo and/or some text.",
+    },
+    {
+      label: "3 · Get a dish",
+      body: "Each step's output flows into the next; the last step is your finished content.",
+    },
+  ];
+
+  return (
+    <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+      <h2 className="text-sm font-medium">How it works</h2>
+      <div className="mt-3 grid gap-3 sm:grid-cols-3">
+        {stages.map((s, i) => (
+          <div key={i} className="relative rounded-xl bg-[var(--surface-2)] p-3">
+            <p className="font-[family-name:var(--font-mono)] text-xs font-medium text-[var(--accent)]">
+              {s.label}
+            </p>
+            <p className="mt-1 text-sm text-[var(--muted)]">{s.body}</p>
+            {i < stages.length - 1 ? (
+              <span
+                className="absolute -right-2 top-1/2 hidden -translate-y-1/2 text-[var(--muted)] sm:block"
+                aria-hidden
+              >
+                →
+              </span>
+            ) : null}
+          </div>
+        ))}
+      </div>
+      <p className="mt-3 text-xs text-[var(--muted)]">
+        Example — <span className="text-[var(--foreground)]">dish photo</span> → describe it
+        → write menu copy → spin five captions. Only step 1 sees your original input; every
+        later step works from the step before it.
+      </p>
+    </section>
   );
 }

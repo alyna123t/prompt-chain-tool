@@ -69,9 +69,12 @@ export async function runChain(
         model: config.model,
         max_tokens: 2000,
         system:
-          "You are one step in a multi-step prompt chain. Apply the step's " +
-          "instruction to the provided input and return ONLY the resulting content " +
-          "— no preamble, no explanation, no markdown fences.",
+          "You are one station on the content prep line for a restaurant's " +
+          "public-facing app. Each station takes what the previous one plated and " +
+          "applies this step's instruction, producing copy for a real restaurant — " +
+          "menu descriptions, social captions, specials, and the like. Keep the voice " +
+          "warm, appetizing and on-brand, never clichéd or over-hyped. Return ONLY the " +
+          "resulting content — no preamble, no explanation, no markdown fences.",
         messages: [{ role: "user", content }],
       });
 
@@ -117,10 +120,10 @@ function runMock(steps: ChainStepDef[], input: ChainInput): RunResult {
   for (let i = 0; i < steps.length; i++) {
     const step = steps[i];
     const output =
-      `[MOCK OUTPUT — add an Anthropic API key in Settings for real generation]\n` +
-      `Step ${i + 1} "${step.name}" applied the instruction:\n` +
+      `[MOCK DISH — add an Anthropic API key in Settings to cook for real]\n` +
+      `Station ${i + 1} "${step.name}" applied the instruction:\n` +
       `  "${truncate(step.prompt, 160)}"\n` +
-      `to the input:\n  "${truncate(previous, 160)}"`;
+      `to the ingredients:\n  "${truncate(previous, 160)}"`;
     results.push({ name: step.name, prompt: step.prompt, output });
     previous = output;
   }

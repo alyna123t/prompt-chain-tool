@@ -35,17 +35,17 @@ export default function MediaItem({
             ...(deleteRedirectTo ? { redirect_to: deleteRedirectTo } : {}),
           }}
           label="Delete"
-          confirmText="Delete this generation?"
+          confirmText="Delete this dish?"
         />
       </div>
 
       <div className="mt-3 space-y-3">
         <div className="rounded-lg bg-[var(--surface-2)] p-3">
-          <p className="text-xs font-medium text-[var(--muted)]">Input</p>
+          <p className="text-xs font-medium text-[var(--muted)]">Ingredients</p>
           {media.input_image_url ? (
             <Image
               src={media.input_image_url}
-              alt="Chain input"
+              alt="Dish input"
               width={160}
               height={160}
               unoptimized
@@ -76,7 +76,7 @@ export default function MediaItem({
         </ol>
 
         <div className="rounded-lg border border-[var(--border)] border-l-2 border-l-[var(--accent)] bg-[var(--accent-light)] p-3">
-          <p className="text-xs font-medium text-[var(--accent)]">Final output</p>
+          <p className="text-xs font-medium text-[var(--accent)]">On the pass</p>
           <p className="mt-1 whitespace-pre-wrap text-sm">{media.final_output}</p>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function MediaItem({
             href={`/chains/${media.chain_id}`}
             className="text-xs text-[var(--muted)] hover:text-[var(--accent)]"
           >
-            View chain →
+            View recipe →
           </Link>
         </div>
       )}

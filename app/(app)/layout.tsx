@@ -38,7 +38,7 @@ export default async function AppLayout({
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-4">
             <Link href="/" className="text-base font-semibold tracking-tight">
-              Prompt<span className="text-[var(--accent)]">Chains</span>
+              Prep<span className="text-[var(--accent)]">Line</span>
             </Link>
             <Nav />
           </div>

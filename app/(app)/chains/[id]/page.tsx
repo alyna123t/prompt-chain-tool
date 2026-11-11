@@ -50,7 +50,7 @@ export default async function ChainDetailPage({
     <div className="space-y-8">
       <div>
         <Link href="/" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">
-          ← Back to chains
+          ← Back to recipes
         </Link>
       </div>
 
@@ -71,14 +71,14 @@ export default async function ChainDetailPage({
 
       <section className="space-y-3">
         <h2 className="text-sm font-medium text-[var(--foreground)]">
-          Generated media{" "}
+          Dishes{" "}
           <span className="font-[family-name:var(--font-mono)] tabular-nums text-[var(--muted)]">
             {mediaList.length}
           </span>
         </h2>
         {mediaList.length === 0 ? (
           <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">
-            Nothing generated yet. Run the chain above to produce media.
+            Nothing plated yet. Cook the recipe above to serve up your first dish.
           </p>
         ) : (
           <div className="space-y-4">

@@ -45,18 +45,18 @@ export default async function MediaPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Generated media</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Dishes</h1>
         <p className="mt-0.5 text-sm text-[var(--muted)]">
           <span className="font-[family-name:var(--font-mono)] tabular-nums">
             {rows.length}
           </span>{" "}
-          generation{rows.length === 1 ? "" : "s"}{" "}
+          dish{rows.length === 1 ? "" : "es"}{" "}
           {activeChain ? (
             <>
-              in <span className="text-[var(--foreground)]">{activeChain.name}</span>
+              from <span className="text-[var(--foreground)]">{activeChain.name}</span>
             </>
           ) : (
-            "across all chains"
+            "across all recipes"
           )}
         </p>
       </div>
@@ -78,15 +78,15 @@ export default async function MediaPage({
 
       {error ? (
         <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          Could not load media: {error.message}
+          Could not load dishes: {error.message}
         </p>
       ) : null}
 
       {rows.length === 0 ? (
         <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">
           {selectedChain
-            ? "No generations for this chain yet."
-            : "Nothing generated yet. Open a chain and run it to produce media."}
+            ? "No dishes from this recipe yet."
+            : "Nothing plated yet. Open a recipe and cook it to serve your first dish."}
         </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -94,7 +94,7 @@ export default async function MediaPage({
             <MediaCard
               key={m.id}
               media={m}
-              chainName={m.prompt_chains?.name ?? "Unknown chain"}
+              chainName={m.prompt_chains?.name ?? "Unknown recipe"}
             />
           ))}
         </div>

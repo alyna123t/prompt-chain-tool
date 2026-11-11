@@ -19,9 +19,9 @@ export default function NewChainPage() {
     <div className="mx-auto max-w-xl space-y-6">
       <div>
         <Link href="/" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">
-          ← Back to chains
+          ← Back to recipes
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight">New prompt chain</h1>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight">New recipe</h1>
       </div>
 
       <Card>
@@ -31,16 +31,16 @@ export default function NewChainPage() {
               name="name"
               required
               maxLength={120}
-              placeholder="e.g. Funny image captions"
+              placeholder="e.g. Dish photo → menu copy → captions"
               className={inputClass}
             />
           </Field>
 
-          <Field label="Description" hint="Optional — what this chain is for">
+          <Field label="Description" hint="Optional — what this recipe is for">
             <textarea
               name="description"
               rows={3}
-              placeholder="Takes an image and turns it into five funny captions"
+              placeholder="Takes a dish photo and plates out a menu description plus five social captions"
               className={textareaClass}
             />
           </Field>
@@ -49,7 +49,7 @@ export default function NewChainPage() {
 
           <div className="flex items-center gap-3">
             <button type="submit" disabled={pending} className={primaryBtn}>
-              {pending ? "Creating…" : "Create chain"}
+              {pending ? "Creating…" : "Create recipe"}
             </button>
             <Link href="/" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">
               Cancel

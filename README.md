@@ -1,30 +1,43 @@
-# Prompt Chain Tool
+# Prep Line
 
-A superadmin-only tool for building and running multi-step AI **prompt chains**.
-Create a chain, add ordered steps, reorder them, then run the chain on an input
-(text and/or an image) — step 1 receives your input, and each later step receives
-the previous step's output. Every run is saved as "generated media" you can browse.
+The **content kitchen** for the Restaurant Vibes app. A superadmin-only tool for
+building and running multi-step AI **recipes** that turn a dish photo or a few words
+into ready-to-use restaurant content — menu descriptions, social captions, specials
+blurbs, and more.
 
-Example chain:
+Create a recipe, add ordered steps, reorder them, then **cook** it on your
+ingredients (text and/or a dish photo) — step 1 receives your ingredients, and each
+later step receives the previous step's output. Every run is plated as a **dish** you
+can browse.
 
-1. Take in an image and describe it in text.
-2. Take the output of step 1 and say something funny about it.
-3. Take the output of step 2 and write five short, funny captions.
+Example recipe — *dish photo → menu copy → captions*:
+
+1. Describe this dish photo in one vivid, appetizing sentence.
+2. Turn that description into a polished two-sentence menu description, no clichés.
+3. Spin the menu description into five short, punchy social captions.
+
+Under the hood these are still generic prompt chains, so the same recipe pattern
+works for anything the restaurant app needs.
 
 Built with **Next.js 16 (App Router) · Supabase (SSR auth + Postgres + RLS) ·
-Tailwind v4 · TypeScript · the Anthropic Claude API** — matching the stack of the
+Tailwind v4 · TypeScript · the Anthropic Claude API** — and it shares the same
+Supabase project (the same Google login and `profiles.is_superadmin` flag) as the
 companion `hello_world` (public) and `vibes-admin` (admin) apps.
 
 ## What it does
 
 - Google sign-in; access restricted to `profiles.is_superadmin == true`
-- Create / update / delete prompt chains
-- Create / update / delete prompt chain steps
+- Create / update / delete recipes (stored in the `prompt_chains` table)
+- Create / update / delete recipe steps
 - Reorder steps (move step 2 to step 1, etc.) with ↑/↓ controls
-- Generate media by running the whole chain (real Claude calls, or a labeled mock
-  fallback when no API key is configured)
-- View the media produced by a specific chain, and a global gallery of all runs
+- Cook a recipe end-to-end (real Claude calls, or a labeled mock fallback when no API
+  key is configured)
+- Browse the dishes plated by a specific recipe, and a global gallery of every dish
 - Dark / Light / System-default theme toggle
+
+> **Naming note:** "Recipe" and "dish" are the user-facing names for what the database
+> still calls `prompt_chains` and `generated_media`. The tables are shared with the
+> other apps, so the rebrand is presentation-only — no schema changes.
 
 Access is enforced in four layers: the `proxy.ts` login wall, the app layout's
 superadmin check, an `assertSuperadmin()` call inside every mutating server action,

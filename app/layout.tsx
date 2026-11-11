@@ -15,8 +15,9 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prompt Chain Tool",
-  description: "Build, reorder and run multi-step AI prompt chains.",
+  title: "Prep Line",
+  description:
+    "The content kitchen for the Restaurant Vibes app — build recipes that turn a dish photo or a few words into menu copy, social captions and more.",
 };
 
 // Applies the saved theme before first paint so there's no light/dark flash.

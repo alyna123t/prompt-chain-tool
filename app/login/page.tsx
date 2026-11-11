@@ -4,7 +4,7 @@ import GoogleSignInButton from "./GoogleSignInButton";
 import SignOutButton from "./SignOutButton";
 
 export const metadata = {
-  title: "Sign in · Prompt Chain Tool",
+  title: "Sign in · Prep Line",
 };
 
 export default async function LoginPage({
@@ -21,10 +21,12 @@ export default async function LoginPage({
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
       <div>
-        <p className="text-sm font-medium text-[var(--accent)]">Prompt Chain Tool</p>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">Restricted area</h1>
+        <p className="text-sm font-medium text-[var(--accent)]">
+          Prep Line · Restaurant Vibes
+        </p>
+        <h1 className="mt-1 text-2xl font-semibold tracking-tight">Back of house</h1>
         <p className="mt-1 text-sm text-[var(--muted)]">
-          Sign in with the authorized Google account. Only superadmins may enter.
+          Sign in with the authorized Google account. Only superadmins may enter the kitchen.
         </p>
       </div>
 

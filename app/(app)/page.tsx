@@ -27,30 +27,32 @@ export default async function ChainsPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Prompt chains</h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Recipes</h1>
           <p className="mt-0.5 text-sm text-[var(--muted)]">
             <span className="font-[family-name:var(--font-mono)] tabular-nums">
               {chains.length}
             </span>{" "}
-            chain{chains.length === 1 ? "" : "s"} · build multi-step AI pipelines
+            recipe{chains.length === 1 ? "" : "s"} · multi-step prompts that cook up content
+            for the Restaurant Vibes app
           </p>
         </div>
         <Link href="/chains/new" className={primaryBtn}>
-          New chain
+          New recipe
         </Link>
       </div>
 
       {error ? (
         <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-          Could not load chains: {error.message}
+          Could not load recipes: {error.message}
         </p>
       ) : null}
 
       {chains.length === 0 ? (
         <Card>
           <p className="text-sm text-[var(--muted)]">
-            No chains yet. Create your first one with “New chain”. A chain is an ordered
-            list of steps — e.g. describe an image → make it funny → write five captions.
+            No recipes yet. Create your first one with “New recipe”. A recipe is an ordered
+            list of steps — e.g. describe a dish photo → write the menu description → spin
+            five social captions.
           </p>
         </Card>
       ) : (
@@ -68,8 +70,8 @@ export default async function ChainsPage() {
                     </p>
                   ) : null}
                   <p className="mt-3 font-[family-name:var(--font-mono)] text-xs tabular-nums text-[var(--muted)]">
-                    {steps} step{steps === 1 ? "" : "s"} · {media} generation
-                    {media === 1 ? "" : "s"} · updated{" "}
+                    {steps} step{steps === 1 ? "" : "s"} · {media} dish
+                    {media === 1 ? "" : "es"} · updated{" "}
                     {new Date(c.updated_at).toLocaleDateString()}
                   </p>
                 </Card>

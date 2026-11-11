@@ -42,8 +42,8 @@ export default function ChainHeader({ chain }: { chain: PromptChain }) {
           <DeleteButton
             action={deleteChain}
             hidden={{ id: chain.id }}
-            label="Delete chain"
-            confirmText="Delete this entire chain, its steps and all its generations? This cannot be undone."
+            label="Delete recipe"
+            confirmText="Delete this entire recipe, its steps and every dish it has plated? This cannot be undone."
           />
         </div>
       </div>

@@ -38,8 +38,8 @@ export default function StepsEditor({
 
       {steps.length === 0 ? (
         <p className="rounded-xl border border-dashed border-[var(--border)] p-4 text-sm text-[var(--muted)]">
-          No steps yet. Add the first step below. Step 1 receives the input you provide at
-          generation time; each later step receives the previous step&apos;s output.
+          No steps yet. Add the first step below. Step 1 receives the ingredients you provide
+          when you cook the recipe; each later step receives the previous step&apos;s output.
         </p>
       ) : (
         <ol className="space-y-3">
@@ -218,14 +218,14 @@ function AddStep({ chainId }: { chainId: string }) {
     >
       <input type="hidden" name="chain_id" value={chainId} />
       <Field label="Step name">
-        <input name="name" required placeholder="e.g. Describe the image" className={inputClass} />
+        <input name="name" required placeholder="e.g. Describe the dish" className={inputClass} />
       </Field>
       <Field label="Prompt / instruction" hint="What this step should do with its input">
         <textarea
           name="prompt"
           required
           rows={3}
-          placeholder="Describe this image in one vivid sentence"
+          placeholder="Describe this dish photo in one vivid, appetizing sentence"
           className={textareaClass}
         />
       </Field>

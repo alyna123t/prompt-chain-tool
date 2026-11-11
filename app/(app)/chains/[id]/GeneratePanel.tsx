@@ -31,12 +31,12 @@ export default function GeneratePanel({
   );
 
   return (
-    <Card title="Generate media" subtitle="Run the whole chain on an input and save the result below">
+    <Card title="Cook the recipe" subtitle="Run every step on your ingredients and plate the dish below">
       {!hasApiKey ? (
         <p className="mb-4 rounded-lg border border-[var(--border)] bg-[var(--surface-2)] p-3 text-xs text-[var(--muted)]">
           No{" "}
           <code className="font-[family-name:var(--font-mono)]">ANTHROPIC_API_KEY</code> is
-          set, so generation returns mock output. Add the key in your Vercel environment
+          set, so cooking returns mock output. Add the key in your Vercel environment
           variables for real AI results.
         </p>
       ) : null}
@@ -44,16 +44,16 @@ export default function GeneratePanel({
       <form ref={formRef} action={action} className="space-y-4">
         <input type="hidden" name="chain_id" value={chainId} />
 
-        <Field label="Text input" hint="Fed into step 1 — optional if you upload an image">
+        <Field label="Text ingredients" hint="Fed into step 1 — optional if you upload a photo">
           <textarea
             name="input_text"
             rows={3}
-            placeholder="Paste text here, or upload an image below"
+            placeholder="Paste a dish name, a few notes, or anything to start from — or upload a photo below"
             className={textareaClass}
           />
         </Field>
 
-        <Field label="Image input" hint="Optional — JPEG, PNG, GIF or WebP, for an image → description → … chain">
+        <Field label="Dish photo" hint="Optional — JPEG, PNG, GIF or WebP, for a photo → description → … recipe">
           <input
             type="file"
             name="image"
@@ -65,13 +65,13 @@ export default function GeneratePanel({
         <ErrorBanner message={state.error} />
         {state.ok ? (
           <p className="rounded-lg border border-[var(--border)] border-l-2 border-l-[var(--positive)] bg-[var(--surface-2)] p-3 text-sm text-[var(--foreground)]">
-            Saved{state.usedMock ? " — mock output, set an API key for real results" : ""}.
+            Plated{state.usedMock ? " — mock output, set an API key for real results" : ""}.
             See it below
           </p>
         ) : null}
 
         <button type="submit" disabled={pending || !hasSteps} className={primaryBtn}>
-          {pending ? "Running chain…" : hasSteps ? "Generate" : "Add a step first"}
+          {pending ? "Cooking…" : hasSteps ? "Cook" : "Add a step first"}
         </button>
       </form>
     </Card>

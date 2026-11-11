@@ -11,7 +11,7 @@ export default async function SettingsPage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
         <p className="mt-0.5 text-sm text-[var(--muted)]">
-          Set the Anthropic API key used to run chains. Stored in your database,
+          Set the Anthropic API key used to cook recipes. Stored in your database,
           readable only by superadmins, and never sent to the browser.
         </p>
       </div>

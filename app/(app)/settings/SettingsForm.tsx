@@ -26,7 +26,7 @@ export default function SettingsForm({ view }: { view: SettingsView }) {
 
   return (
     <div className="space-y-4">
-      <Card title="API key" subtitle="Used to generate media when a chain runs">
+      <Card title="API key" subtitle="Used to cook recipes into dishes">
         <Status view={view} />
 
         <form action={action} className="mt-4 space-y-5">
@@ -47,7 +47,7 @@ export default function SettingsForm({ view }: { view: SettingsView }) {
             />
           </Field>
 
-          <Field label="Model" hint="Which Claude model each step calls">
+          <Field label="Model" hint="Which Claude model each recipe step calls">
             <select name="model" defaultValue={view.model} className={inputClass}>
               {MODELS.map((m) => (
                 <option key={m.value} value={m.value}>
@@ -60,7 +60,7 @@ export default function SettingsForm({ view }: { view: SettingsView }) {
           <ErrorBanner message={state.error} />
           {state.ok ? (
             <p className="rounded-lg border border-[var(--border)] bg-[var(--accent-light)] p-3 text-sm text-[var(--foreground)]">
-              Saved. New generations will use these settings.
+              Saved. New dishes will use these settings.
             </p>
           ) : null}
 
@@ -87,7 +87,7 @@ function Status({ view }: { view: SettingsView }) {
   if (!view.hasKey) {
     return (
       <p className="rounded-lg border border-dashed border-[var(--border)] p-3 text-sm text-[var(--muted)]">
-        No key set — generation returns labeled{" "}
+        No key set — cooking returns labeled{" "}
         <span className="font-medium text-[var(--foreground)]">mock</span> output.
       </p>
     );

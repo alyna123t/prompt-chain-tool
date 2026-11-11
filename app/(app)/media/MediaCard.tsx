@@ -56,7 +56,7 @@ function Thumb({ media }: { media: GeneratedMedia }) {
       <div className="relative aspect-video overflow-hidden bg-[var(--surface-2)]">
         <Image
           src={media.input_image_url}
-          alt="Chain input"
+          alt="Dish input"
           fill
           unoptimized
           className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"

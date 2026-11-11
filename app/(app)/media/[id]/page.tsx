@@ -34,13 +34,13 @@ export default async function MediaDetailPage({
           href="/media"
           className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
         >
-          ← Back to generated media
+          ← Back to dishes
         </Link>
       </div>
 
       <MediaItem
         media={data}
-        chainName={data.prompt_chains?.name ?? "Unknown chain"}
+        chainName={data.prompt_chains?.name ?? "Unknown recipe"}
         deleteRedirectTo="/media"
       />
     </div>

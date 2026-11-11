@@ -1,6 +1,6 @@
-# Prep Line
+# Vibes Studio
 
-The **content kitchen** for the Restaurant Vibes app. A superadmin-only tool for
+The **content studio** for the Restaurant Vibes app. A superadmin-only tool for
 building and running multi-step AI **recipes** that turn a dish photo or a few words
 into ready-to-use restaurant content — menu descriptions, social captions, specials
 blurbs, and more.

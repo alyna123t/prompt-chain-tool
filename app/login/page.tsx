@@ -4,7 +4,7 @@ import GoogleSignInButton from "./GoogleSignInButton";
 import SignOutButton from "./SignOutButton";
 
 export const metadata = {
-  title: "Sign in · Prep Line",
+  title: "Sign in · Vibes Studio",
 };
 
 export default async function LoginPage({
@@ -22,7 +22,7 @@ export default async function LoginPage({
     <main className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center gap-6 px-4 py-10">
       <div>
         <p className="text-sm font-medium text-[var(--accent)]">
-          Prep Line · Restaurant Vibes
+          Vibes Studio · Restaurant Vibes
         </p>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">Back of house</h1>
         <p className="mt-1 text-sm text-[var(--muted)]">
